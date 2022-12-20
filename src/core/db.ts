@@ -7,10 +7,12 @@ const uri: string = process.env.DB_URI ?? '';
 
 class DBHandler {
     client: MongoClient;
+    squadronsCol: Collection;
 
     constructor() {
         this.client = new MongoClient(uri);
         console.log('Connected to DB');
+        this.squadronsCol = this.client.db('swsb').collection('squadrons');
     }
 }
 

@@ -43,6 +43,14 @@ class DBHandler {
     }
 
     /**
+     * Deletes a squadron from the database given a leader role
+     * @param leaderRole Leader role ID of the target squadron
+     */
+    async removeSquadron(leaderRole: string) {
+        this.squadronsCol.deleteOne({leaderRole: leaderRole});
+    }
+
+    /**
      * Gets an array of all the squadron leader roles
      * @returns Array of leader roles
      */

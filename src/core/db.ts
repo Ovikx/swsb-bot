@@ -8,7 +8,7 @@ const uri: string = process.env.DB_URI ?? '';
 
 class DBHandler {
     client: MongoClient;
-    squadronsCol: Collection;
+    squadronsCol: Collection<Squadron>;
 
     constructor() {
         this.client = new MongoClient(uri);
@@ -40,6 +40,34 @@ class DBHandler {
             memberRole
         }
         await this.squadronsCol.insertOne(squadron);
+    }
+
+    /**
+     * Gets an array of all the squadron leader roles
+     * @returns Array of leader roles
+     */
+    async getLeaderRoles(): Promise<string[]> {
+        const squadrons = await this.squadronsCol.find({}).toArray();
+        let res: string[] = [];
+        for (const squadron of squadrons) {
+            res.push(squadron.leaderRole);
+        }
+
+        return res;
+    }
+
+    /**
+     * Returns the squadron with the matching leader role
+     * @param leaderRole Leader role ID
+     * @returns Squadron
+     */
+    async getSquadron(leaderRole: string): Promise<Squadron | null> {
+        const squadron = await this.squadronsCol.findOne({leaderRole: leaderRole});
+        if (!squadron) {
+            return null;
+        }
+        
+        return squadron;
     }
 }
 

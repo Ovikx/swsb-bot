@@ -7,6 +7,8 @@ import { createAuthor } from '../utils/helpers/misc';
 
 async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
     try {
+        await interaction.acknowledge();
+
         const caller = interaction.member;
         if (!caller) {
             throw 'Failed to fetch caller';
@@ -34,7 +36,7 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
         }
 
         await DB.registerSquadron(leaderRole, memberRole);
-        await interaction.createMessage({
+        await interaction.createFollowup({
             embeds: [
                 {
                     title: '✅ Squadron registered!',

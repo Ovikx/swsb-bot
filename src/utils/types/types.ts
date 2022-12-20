@@ -10,3 +10,9 @@ export interface Import {
     filename: string;
     import: SlashCommand;
 }
+
+// Database
+export interface Squadron {
+    leaderRole: string,
+    memberRole: string
+}

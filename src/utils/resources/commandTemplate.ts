@@ -11,11 +11,7 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
 
         let errorStr = 'An unexpected error occurred.';
         if (typeof e == 'string') {
-            switch (e) {
-                case 'Not started':
-                    errorStr = 'You don\'t have any data yet. Use `/start` to get started!';
-                    break;
-            }
+            switch (e) {}
         }
 
         await interaction.createFollowup({

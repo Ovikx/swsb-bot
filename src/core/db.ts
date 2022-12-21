@@ -77,6 +77,14 @@ class DBHandler {
         
         return squadron;
     }
+
+    /**
+     * Gets all registered squadrons
+     * @returns All squadrons
+     */
+    async getAllSquadrons(): Promise<Squadron[]> {
+        return await this.squadronsCol.find({}).toArray();
+    }
 }
 
 export const DB = new DBHandler();

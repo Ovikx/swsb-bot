@@ -1,4 +1,5 @@
 # Documentation
+This bot is for the Star Wars: Space Battle discord server. The bot's goal is to automate niche game-specific tasks.
 
 ## Squadron Leaders
 Follow these steps to make your squadron official:

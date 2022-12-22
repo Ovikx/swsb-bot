@@ -62,7 +62,10 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
                     title,
                     description,
                     color,
-                    author: createAuthor(interaction)
+                    author: createAuthor(interaction),
+                    footer: {
+                        text: '[REMINDER] Assigning roles to users that aren\'t in your squadron is not allowed'
+                    }
                 }
             ]
         });

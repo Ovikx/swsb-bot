@@ -31,7 +31,7 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
         const leaderRole: string = (interaction.data.options?.[0] as any).value;
 
         // Check if squadron exists
-        const squadron = await DB.getSquadron(leaderRole);
+        const squadron = await DB.getSquadronByLeader(leaderRole);
         if (!squadron) {
             throw 'Squadron does not exist';
         }

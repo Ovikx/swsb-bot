@@ -69,7 +69,7 @@ class DBHandler {
      * @param leaderRole Leader role ID
      * @returns Squadron
      */
-    async getSquadron(leaderRole: string): Promise<Squadron | null> {
+    async getSquadronByLeader(leaderRole: string): Promise<Squadron | null> {
         const squadron = await this.squadronsCol.findOne({leaderRole: leaderRole});
         if (!squadron) {
             return null;

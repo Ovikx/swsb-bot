@@ -30,7 +30,7 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
             throw 'Not squadron leader';
         }
 
-        const squadron = await DB.getSquadron(leaderRole);
+        const squadron = await DB.getSquadronByLeader(leaderRole);
         if (!squadron) {
             throw 'Squadron fetching error';
         }

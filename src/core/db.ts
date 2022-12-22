@@ -54,11 +54,11 @@ class DBHandler {
      * Gets an array of all the squadron leader roles
      * @returns Array of leader roles
      */
-    async getLeaderRoles(): Promise<string[]> {
+    async getSquadronRoles(key: 'memberRole' | 'leaderRole'): Promise<string[]> {
         const squadrons = await this.squadronsCol.find({}).toArray();
         let res: string[] = [];
         for (const squadron of squadrons) {
-            res.push(squadron.leaderRole);
+            res.push(squadron[key]);
         }
 
         return res;
@@ -76,6 +76,39 @@ class DBHandler {
         }
         
         return squadron;
+    }
+
+    /**
+     * Returns the squadron with the matching member role
+     * @param memberRole Member role ID
+     * @returns Squadron
+     */
+    async getSquadronByMember(memberRole: string): Promise<Squadron | null> {
+        const squadron = await this.squadronsCol.findOne({memberRole: memberRole});
+        if (!squadron) {
+            return null;
+        }
+
+        return squadron;
+    }
+
+    /**
+     * Returns the squadron with a matching role
+     * @param role Role ID
+     * @returns Squadron
+     */
+    async getSquadronByAny(role: string): Promise<Squadron | null> {
+        const leaderRes = await this.getSquadronByLeader(role);
+        const memberRes = await this.getSquadronByMember(role);
+        if (leaderRes) {
+            return leaderRes;
+        }
+        
+        if (memberRes) {
+            return memberRes;
+        }
+
+        return null;
     }
 
     /**

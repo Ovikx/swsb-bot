@@ -34,7 +34,7 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
         let hasTargetRole = false;
         const leaderRoles = await DB.getSquadronRoles('leaderRole');
         for (const role of caller.roles) {
-            if (leaderRoles.includes(role)) {
+            if (leaderRoles.includes(role) && (await DB.getSquadronByLeader(role))?.memberRole == targetRole) {
                 throw 'Squadron leader';
             }
 

@@ -87,7 +87,7 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
 module.exports = {
     config: {
         type: Constants.ApplicationCommandTypes.CHAT_INPUT,
-        name: 'leave-squadron',
+        name: 'leave-all-squadrons',
         description: 'Removes all of your squadron roles'
     },
     action: command

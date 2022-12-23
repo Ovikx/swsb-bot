@@ -36,12 +36,6 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
         }
 
         const memberId: string = (interaction.data.options?.[0] as any).value;
-        const member = await bot.getRESTGuildMember(important.supportGuildId, memberId);
-        
-        // Check that member is not in a squadron
-        if (await DB.userInSquadron(member)) {
-            throw 'Already in squadron';
-        }
 
         // Interaction must be called from a serer
         const guildId = interaction.guildID;

@@ -8,6 +8,12 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
     try {
         await interaction.acknowledge();
 
+        // Check that command was called from a server
+        const guildId = interaction.guildID;
+        if (!guildId) {
+            throw 'Server invoke only';
+        }
+
         const caller = interaction.member;
         if (!caller) {
             throw 'Failed to fetch caller'
@@ -44,7 +50,7 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
         let roleMentions: string[] = [];
         for (const role of rolesToRemove) {
             roleMentions.push(`<@&${role}>`);
-            bot.removeGuildMemberRole(important.supportGuildId, caller.id, role);
+            bot.removeGuildMemberRole(guildId, caller.id, role);
         }
 
         const joinedRoles = roleMentions.join(', ');
@@ -73,6 +79,9 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
                     break;
                 case 'No squadron roles':
                     errorStr = 'You have no squadron roles to remove.';
+                    break;
+                case 'Server invoke only':
+                    errorStr = 'You can only use this command from a server.';
                     break;
             }
         }

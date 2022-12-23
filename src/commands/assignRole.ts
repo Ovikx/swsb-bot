@@ -8,6 +8,12 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
     try {
         await interaction.acknowledge();
 
+        // Check that command was called from a server
+        const guildId = interaction.guildID;
+        if (!guildId) {
+            throw 'Server invoke only';
+        }
+        
         const caller = interaction.member;
         if (!caller) {
             throw 'Failed to fetch caller'
@@ -36,12 +42,6 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
         }
 
         const memberId: string = (interaction.data.options?.[0] as any).value;
-
-        // Interaction must be called from a server
-        const guildId = interaction.guildID;
-        if (!guildId) {
-            throw 'Server invoke only';
-        }
 
         // Embed details
         let title = '✅ Role added!';

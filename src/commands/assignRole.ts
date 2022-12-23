@@ -37,7 +37,7 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
 
         const memberId: string = (interaction.data.options?.[0] as any).value;
 
-        // Interaction must be called from a serer
+        // Interaction must be called from a server
         const guildId = interaction.guildID;
         if (!guildId) {
             throw 'Server invoke only';

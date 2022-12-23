@@ -2,6 +2,7 @@
 import { Collection, MongoClient, ObjectId } from 'mongodb';
 import dotenv from 'dotenv';
 import { Squadron } from '../utils/types/types';
+import Eris from 'eris';
 dotenv.config();
 
 const uri: string = process.env.DB_URI ?? '';
@@ -117,6 +118,23 @@ class DBHandler {
      */
     async getAllSquadrons(): Promise<Squadron[]> {
         return await this.squadronsCol.find({}).toArray();
+    }
+
+    /**
+     * Checks if a guild member is in a squadron
+     * @param user Guild member to check
+     * @returns Boolean, whether or not the user is in a squadron
+     */
+    async userInSquadron(user: Eris.Member): Promise<boolean> {
+        const leaderRoles = await this.getSquadronRoles('leaderRole');
+        const memberRoles = await this.getSquadronRoles('memberRole');
+        for (const role of user.roles) {
+            if (leaderRoles.includes(role) || memberRoles.includes(role)) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 }
 

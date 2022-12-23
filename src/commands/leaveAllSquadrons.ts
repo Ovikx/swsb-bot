@@ -69,7 +69,7 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
         if (typeof e == 'string') {
             switch (e) {
                 case 'Squadron leader':
-                    errorStr = 'You are a squadron leader; contact an admin if you want to delete your squadron.';
+                    errorStr = 'You are a squadron leader; contact an admin if you want to delete your squadron or transfer ownership to someone else.';
                     break;
                 case 'No squadron roles':
                     errorStr = 'You have no squadron roles to remove.';

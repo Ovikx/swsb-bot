@@ -31,7 +31,7 @@ export default bot.on('guildMemberAdd', async (guild, member) => {
         console.log('member not situated');
         const msg = outdent
         `<@${member.id}> Having trouble joining the server? Do the following to gain access to the rest of the server:
-        • Click the check mark in <#${RULES_ID}>
+        • Click the check mark in <#${RULES_ID}> (https://discord.com/channels/828348454887489556/828356780706496532/828481640438300682)
         • Use \`/verify\` in <#${VERIFY_ID}>
         Feel free to contact an admin if you are having trouble.`
         bot.createMessage(CHANNEL_ID, msg);

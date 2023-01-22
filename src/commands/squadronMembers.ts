@@ -64,6 +64,17 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
                 break;
             }
         }
+
+        // Process options
+        if (interaction.data.options?.[0] != undefined) {
+            callerSquadron = (interaction.data.options?.[0] as any).value as string;
+            if (!leaderRoles.includes(callerSquadron) && !memberRoles.includes(callerSquadron)) {
+                throw 'Invalid squadron';
+            }
+            if (leaderRoles.includes(callerSquadron)) {
+                callerSquadron = await getMemberRoleByLeader(callerSquadron);
+            }
+        }
         
         if (!callerSquadron) {
             throw 'Not in squadron'
@@ -108,6 +119,9 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
                 case 'Guild fetching error':
                     errorStr = `An error occurred while trying to fetch this server from the cache. Contact <@${important.ownerId}>`;
                     break;
+                case 'Invalid squadron':
+                    errorStr = 'You entered an invalid squadron role. Type in the squadron\'s leader or member role.';
+                    break;
             }
         }
 
@@ -122,7 +136,15 @@ module.exports = {
     config: {
         type: Constants.ApplicationCommandTypes.CHAT_INPUT,
         name: 'squadron-members',
-        description: 'View a list of members in your squadron'
+        description: 'View a list of members in your squadron',
+        options: [
+            {
+                type: Constants.ApplicationCommandOptionTypes.ROLE,
+                name: 'squadron',
+                description: 'The leader/member role of the squadron to query',
+                required: false
+            }
+        ]
     },
     action: command
 }

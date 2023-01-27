@@ -40,7 +40,7 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
             embeds: [
                 {
                     title: '✅ Squadron registered!',
-                    description: `Squadron leader role <@&${leaderRole}> and squadron member role <@&${memberRole}> have succesfully been registered.`,
+                    description: `Squadron leader role <@&${leaderRole}> and squadron member role <@&${memberRole}> have successfully been registered.`,
                     color: +colors.success,
                     author: createAuthor(interaction)
                 }

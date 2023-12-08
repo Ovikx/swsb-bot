@@ -1,4 +1,5 @@
 import Eris from 'eris';
+import roles from '../resources/roles.json';
 
 /**
  * Pauses program execution for a specified amount of time
@@ -64,4 +65,21 @@ export function difference<T>(arr1: T[], arr2: T[]): T[] {
  */
 export function createAuthor(interaction: Eris.CommandInteraction): {name: string, icon_url: string} {
     return {name: interaction.member?.username ?? '', icon_url: interaction.member?.avatarURL ?? ''};
+}
+
+/**
+ * Checks if the member is an admin
+ * @param member The member to check
+ * @returns Whether the member is an admin
+ */
+export function isAdmin(member: Eris.Member) {
+    let isAdmin = false;
+    for (const role of member.roles) {
+        if (roles.authorizedRoles.includes(role)) {
+            isAdmin = true;
+            break;
+        }
+    }
+
+    return isAdmin;
 }

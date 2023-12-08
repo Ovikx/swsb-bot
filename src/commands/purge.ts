@@ -1,9 +1,8 @@
 import Eris, { Constants } from 'eris';
-import roles from '../utils/resources/roles.json';
 import important from '../utils/resources/important.json';
 import { DB } from '../core/db';
 import colors from '../utils/resources/colors.json';
-import { createAuthor } from '../utils/helpers/misc';
+import { createAuthor, isAdmin } from '../utils/helpers/misc';
 
 async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
     try {
@@ -14,34 +13,35 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
             throw 'Failed to fetch caller';
         }
 
-        // Check if caller is admin
-        let isAdmin = false;
-        for (const role of caller.roles) {
-            if (roles.authorizedRoles.includes(role)) {
-                isAdmin = true;
-                break;
-            }
-        }
-
         // Admin-only command
-        if (!isAdmin) {
+        if (!isAdmin(caller)) {
             throw 'Not admin';
         }
 
-        const leaderRole: string = (interaction.data.options?.[0] as any).value;
+        const squadrons = await DB.getAllSquadrons();
+        const roles = bot.guilds.get(interaction.guildID ?? '')?.roles;
 
-        // Check if squadron exists
-        const squadron = await DB.getSquadronByLeader(leaderRole);
-        if (!squadron) {
-            throw 'Squadron does not exist';
+        // Check that roles collection exists
+        if (!roles) {
+            throw 'Could not fetch roles';
         }
 
-        await DB.removeSquadron(leaderRole);
+        let numPurged =  0;
+
+        // Purge squadrons
+        for (const squadron of squadrons) {
+            if (!roles.has(squadron.leaderRole) || !roles.has(squadron.memberRole)) {
+                console.log(`purging ${squadron.leaderRole}`);
+                numPurged++;
+                DB.removeSquadron(squadron.leaderRole);
+            }
+        }
+
         await interaction.createFollowup({
             embeds: [
                 {
-                    title: '✅ Squadron removed!',
-                    description: `The squadron associated with leader role <@&${leaderRole}> has been removed.`,
+                    title: '✅ Squadrons purged!',
+                    description: `${numPurged} squadrons have been purged because one of their roles weren't found.`,
                     color: +colors.success,
                     author: createAuthor(interaction)
                 }
@@ -61,10 +61,10 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
                     errorStr = `Unable to fetch the command caller\'s details. Contact <@${important.ownerId}>.`;
                     break;
                 case 'Not admin':
-                    errorStr = 'You must be an admin to register a squadron.';
+                    errorStr = 'You must be an admin to purge squadrons.';
                     break;
-                case 'Squadron does not exist':
-                    errorStr = 'The squadron you specified does not exist.';
+                case 'Could not fetch roles':
+                    errorStr = 'Could not fetch the server\'s roles.';
                     break;
             }
         }
@@ -79,16 +79,8 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
 module.exports = {
     config: {
         type: Constants.ApplicationCommandTypes.CHAT_INPUT,
-        name: 'remove-squadron',
-        description: '[ADMIN USE ONLY] Removes a squadron from the database',
-        options: [
-            {
-                type: Constants.ApplicationCommandOptionTypes.ROLE,
-                name: 'leader-role',
-                description: 'The squadron leader role',
-                required: true
-            }
-        ]
+        name: 'purge',
+        description: '[ADMIN USE ONLY] Removes any squadrons with nonexistent roles'
     },
     action: command
 }

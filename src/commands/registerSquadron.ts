@@ -60,7 +60,7 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
                     errorStr = `Unable to fetch the command caller\'s details. Contact <@${important.ownerId}>.`;
                     break;
                 case 'Not admin':
-                    errorStr = 'You must be admin to register a squadron.';
+                    errorStr = 'You must be an admin to register a squadron.';
                     break;
                 case 'Squadron already exists':
                     errorStr = 'Either the squadron leader role or squadron member role is already assigned to a different squadron.';

@@ -20,7 +20,8 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
                             value: outdent
                             `\`/register-squadron\`: Registers a squadron into the database; this *has* to be done in order for the system to work
                             \`/remove-squadron\`: Removes a squadron from the database; note that this does not unassign roles from the squadron members
-                            \`/squadrons\`: Displays all registered squadrons`
+                            \`/squadrons\`: Displays all registered squadrons
+                            \`/purge\`: Deletes all squadrons that don't have an existing leader and/or member role`
                         }
                     ],
                     color: +colors.blue

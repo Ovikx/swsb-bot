@@ -9,6 +9,8 @@ const RULES_ID = '828356780706496532';
 const VERIFY_ID = '828348454887489559';
 const MINUTES = 3;
 
+let dateTime = new Date()
+
 // Checks if a given member has the required roles
 function memberSituated(member: Eris.Member): boolean {
     for (const role of REQUIRED_ROLES) {
@@ -28,7 +30,7 @@ export default bot.on('guildMemberAdd', async (guild, member) => {
     }
 
     if (!memberSituated(newMember)) {
-        console.log('member not situated');
+        console.log(dateTime, ': member not situated');
         const msg = outdent
         `<@${member.id}> Having trouble joining the server? Do the following to gain access to the rest of the server:
         • Click the check mark in <#${RULES_ID}> (https://discord.com/channels/828348454887489556/828356780706496532/828481640438300682)
@@ -36,6 +38,6 @@ export default bot.on('guildMemberAdd', async (guild, member) => {
         Feel free to contact an admin if you are having trouble.`
         bot.createMessage(CHANNEL_ID, msg);
     } else {
-        console.log('member situated');
+        console.log(dateTime, ': member situated');
     }
 });

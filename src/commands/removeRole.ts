@@ -51,7 +51,7 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
         await bot.removeGuildMemberRole(guildId, memberId, squadron.memberRole).catch(
             () => {
                 title = 'Something went wrong...';
-                description = `Something went wrong when trying to assign the role. Contact <@${important.ownerId}>.`,
+                description = `Something went wrong when trying to assign the role. Contact <@${important.maintainerId}>.`,
                 color = +colors.failure
             }
         );
@@ -77,13 +77,13 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
         if (typeof e == 'string') {
             switch (e) {
                 case 'Failed to fetch caller':
-                    errorStr = `Unable to fetch the command caller\'s details. Contact <@${important.ownerId}>.`;
+                    errorStr = `Unable to fetch the command caller\'s details. Contact <@${important.maintainerId}>.`;
                     break;
                 case 'Not squadron leader':
                     errorStr = 'You are not a squadron leader.';
                     break;
                 case 'Squadron fetching error':
-                    errorStr = `Something went wrong when fetching your squadron. Contact <@${important.ownerId}>.`;
+                    errorStr = `Something went wrong when fetching your squadron. Contact <@${important.maintainerId}>.`;
                     break;
                 case 'Server invoke only':
                     errorStr = 'You can only use this command from a server.';

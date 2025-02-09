@@ -41,7 +41,7 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
         if (typeof e == 'string') {
             switch (e) {
                 case 'Failed to fetch caller':
-                    errorStr = `Unable to fetch the command caller\'s details. Contact <@${important.ownerId}>.`;
+                    errorStr = `Unable to fetch the command caller\'s details. Contact <@${important.maintainerId}>.`;
                     break;
                 case 'Squadron already exists':
                     errorStr = 'Either the squadron leader role or squadron member role is already assigned to a different squadron.';

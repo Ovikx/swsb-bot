@@ -10,9 +10,9 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
                 {
                     title: 'The official SW:SB bot',
                     description: outdent
-                    `Developed by <@${important.ownerId}>
+                    `Originally developed by <@${important.ownerId}>. It is currently maintained and hosted by <@${important.maintainerId}>, who should be notified should any issues arise.
                     \n
-                    The aim of this bot is to facilitate SW:SB-specific tasks.`,
+                    The aim of this bot is to facilitate SW:SB-specific tasks. This currently includes managing squadrons and welcoming new members.`,
                     color: +colors.a_class,
                     footer: {
                         text: 'gonk > clankers'

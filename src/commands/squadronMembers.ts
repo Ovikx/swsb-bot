@@ -110,13 +110,13 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
         if (typeof e == 'string') {
             switch (e) {
                 case 'Failed to fetch caller':
-                    errorStr = `Unable to fetch the command caller\'s details. Contact <@${important.ownerId}>.`;
+                    errorStr = `Unable to fetch the command caller\'s details. Contact <@${important.maintainerId}>.`;
                     break;
                 case 'Not in squadron':
                     errorStr = 'You have to be in a squadron to use this command.';
                     break;
                 case 'Guild fetching error':
-                    errorStr = `An error occurred while trying to fetch this server from the cache. Contact <@${important.ownerId}>`;
+                    errorStr = `An error occurred while trying to fetch this server from the cache. Contact <@${important.maintainerId}>`;
                     break;
                 case 'Invalid squadron':
                     errorStr = 'You entered an invalid squadron role. Type in the squadron\'s leader or member role.';

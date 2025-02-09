@@ -58,7 +58,7 @@ async function command(bot: Eris.Client, interaction: Eris.CommandInteraction) {
         if (typeof e == 'string') {
             switch (e) {
                 case 'Failed to fetch caller':
-                    errorStr = `Unable to fetch the command caller\'s details. Contact <@${important.ownerId}>.`;
+                    errorStr = `Unable to fetch the command caller\'s details. Contact <@${important.maintainerId}>.`;
                     break;
                 case 'Not admin':
                     errorStr = 'You must be an admin to register a squadron.';

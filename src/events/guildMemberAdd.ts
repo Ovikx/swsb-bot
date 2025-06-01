@@ -30,7 +30,7 @@ export default bot.on('guildMemberAdd', async (guild, member) => {
     if (!memberSituated(newMember)) {
         console.log(Date(), ': member not situated');
         if (!newMember.roles.includes("Unverified")) {
-            newMember.addRole("Unverified")
+            newMember.addRole("828740126028988516")
         }
         const msg = outdent
         `<@${member.id}> Having trouble joining the server? Do the following to gain access to the rest of the server:

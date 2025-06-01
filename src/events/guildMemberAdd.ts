@@ -29,6 +29,9 @@ export default bot.on('guildMemberAdd', async (guild, member) => {
 
     if (!memberSituated(newMember)) {
         console.log(Date(), ': member not situated');
+        if (!newMember.roles.includes("Unverified")) {
+            newMember.addRole("Unverified")
+        }
         const msg = outdent
         `<@${member.id}> Having trouble joining the server? Do the following to gain access to the rest of the server:
         • Click the check mark in <#${RULES_ID}> (https://discord.com/channels/828348454887489556/828356780706496532/828481640438300682)

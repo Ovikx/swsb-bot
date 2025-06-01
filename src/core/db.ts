@@ -6,7 +6,6 @@ import Eris from 'eris';
 dotenv.config();
 
 const uri: string = process.env.DB_URI ?? '';
-let dateTime = new Date()
 
 class DBHandler {
     client: MongoClient;
@@ -14,7 +13,7 @@ class DBHandler {
 
     constructor() {
         this.client = new MongoClient(uri);
-        console.log(dateTime, ': Connected to DB');
+        console.log(Date(), ': Connected to DB');
         this.squadronsCol = this.client.db('swsb').collection('squadrons');
     }
 

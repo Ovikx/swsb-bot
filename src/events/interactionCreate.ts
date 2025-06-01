@@ -6,11 +6,9 @@ import { bot } from '../core/bot';
 const commandCreator = new CommandCreator();
 const commands = commandCreator.getCommands();
 
-let dateTime = new Date()
-
 export default bot.on('interactionCreate', async (interaction) => {
     if (interaction instanceof Eris.CommandInteraction) {
-        console.log(dateTime, ': command interaction received!');
+        console.log(Date(), ': command interaction received!');
         let matched = false;
         commands.every((cmd: Import) => {
             if (interaction.data.name == cmd.import.config.name) {

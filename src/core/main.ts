@@ -12,4 +12,4 @@ events;
 bot.connect();
 
 // Failsafe error handler
-process.on('uncaughtException', (e) => {console.log(Date.now(),': ',e)});
+process.on('uncaughtException', (e) => {console.log(Date(),': ',e)});

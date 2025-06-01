@@ -8,9 +8,8 @@ import { DB } from './db';
 
 DB;
 events;
-let dateTime = new Date()
 
 bot.connect();
 
 // Failsafe error handler
-process.on('uncaughtException', (e) => {console.log(dateTime,': ',e)});
+process.on('uncaughtException', (e) => {console.log(Date(),': ',e)});
